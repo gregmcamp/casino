@@ -1,7 +1,6 @@
 require_relative 'player'
 require_relative 'slots'
 require_relative 'high_low'
-require 'pry'
 
 class Casino
   attr_accessor :player
@@ -23,7 +22,7 @@ class Casino
     when 1
       HighLow.new(@player)
     when 2
-      Slots_machine.new(@player)
+      Slot_machine.new(@player)
     when 3
       exit(0)
     else
