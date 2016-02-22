@@ -1,19 +1,29 @@
 
 
+<<<<<<< HEAD
 
 class HighLow
 	def initialize(player)
 		@player = player
 		main_menu
+=======
+	def initialize(player)
+		main_menu(player)
+>>>>>>> b783ac24eb9fe098afe08f8b19e7ab2d06827eaf
 	end
 
-	def main_menu
+	def main_menu(player)
 		player_number = 0
 		puts "The Number of The Beast"
 		player_bet = get_player_bet
 		player_number = get_player_number
+<<<<<<< HEAD
 		@player.bankroll = determine_winnings(player_number, player_bet)
 		exit_menu
+=======
+		player.bankroll = determine_winnings(player_number, player_bet, player)
+		exit_menu(player)
+>>>>>>> b783ac24eb9fe098afe08f8b19e7ab2d06827eaf
 	end
 
 	def get_player_bet
@@ -24,7 +34,7 @@ class HighLow
 		if player_bet > @player.bankroll
 			puts "You don't have that much money!"
 		elsif player_bet == 0
-			main_menu
+			main_menu(player)
 		end
 		player_bet
 	end
@@ -41,7 +51,7 @@ class HighLow
 		end
 	end
 
-	def determine_winnings(player_number, player_bet)
+	def determine_winnings(player_number, player_bet, player)
 		puts "The Beast is choosing..."
 		beast_number = rand(1..1000)
 		winning_number = rand(1..1000)
@@ -73,16 +83,16 @@ class HighLow
 		@player.bankroll
 	end
 
-	def exit_menu
+	def exit_menu(player)
 		puts "Would you like to callenge The Beast again?[y/n]"
 		option = gets.strip.downcase
 		case option
 		when "y"
-			main_menu
+			main_menu(player)
 		when "n"
 			puts "Goodbye"
 		else
-			exit_menu
+			exit_menu(player)
 		end
 	end
 end
