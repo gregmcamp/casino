@@ -3,17 +3,17 @@ require_relative 'menu'
 class High_low
 	attr_accessor :player
 
-	def initialize
-		main_menu
+	def initialize(player)
+		main_menu(player)
 	end
 
-	def main_menu
+	def main_menu(player)
 		player_number = 0
 		puts "The Number of The Beast"
 		player_bet = get_player_bet
 		player_number = get_player_number
-		player.bankroll = determine_winnings(player_number, player_bet)
-		exit_menu
+		player.bankroll = determine_winnings(player_number, player_bet, player)
+		exit_menu(player)
 	end
 
 	def get_player_bet
@@ -24,7 +24,7 @@ class High_low
 		if player_bet > player.bankroll
 			puts "You don't have that much money!"
 		elsif player_bet == 0
-			main_menu
+			main_menu(player)
 		end
 		player_bet
 	end
@@ -41,7 +41,7 @@ class High_low
 		end
 	end
 
-	def determine_winnings(player_number, player_bet)
+	def determine_winnings(player_number, player_bet, player)
 		puts "The Beast is choosing..."
 		beast_number = rand(1..1000)
 		winning_number = rand(1..1000)
@@ -73,16 +73,16 @@ class High_low
 		player.bankroll
 	end
 
-	def exit_menu
+	def exit_menu(player)
 		puts "Would you like to callenge The Beast again?[y/n]"
 		option = gets.strip.downcase
 		case option
 		when "y"
-			main_menu
+			main_menu(player)
 		when "n"
 			casino.menu
 		else
-			exit_menu
+			exit_menu(player)
 		end
 	end
 end
