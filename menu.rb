@@ -1,6 +1,7 @@
 require_relative 'player'
 require_relative 'slots'
 require_relative 'high_low'
+require 'pry'
 
 class Casino
   attr_accessor :player
@@ -20,17 +21,16 @@ class Casino
     menu_select = gets.to_i
     case menu_select
     when 1
-      game = High_low.new(@player)
-      game.play
+      HighLow.new(@player)
     when 2
-      game = Slots_machine.new(@player)
-      game.slots_play
+      Slots_machine.new(@player)
     when 3
       exit(0)
     else
       puts "Bad llama. Retry.\n\n"
       menu
     end
+    menu
   end
 end
 

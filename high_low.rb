@@ -1,9 +1,9 @@
-require_relative 'menu'
 
-class High_low
-	attr_accessor :player
 
-	def initialize
+
+class HighLow
+	def initialize(player)
+		@player = player
 		main_menu
 	end
 
@@ -12,16 +12,16 @@ class High_low
 		puts "The Number of The Beast"
 		player_bet = get_player_bet
 		player_number = get_player_number
-		player.bankroll = determine_winnings(player_number, player_bet)
+		@player.bankroll = determine_winnings(player_number, player_bet)
 		exit_menu
 	end
 
 	def get_player_bet
-		player = 0
-		puts "Wallet total: $#{player.bankroll}"
+		player_bet = 0
+		puts "Wallet total: $#{@player.bankroll}"
 		puts "How much will you bet?"
 		player_bet = gets.to_i
-		if player_bet > player.bankroll
+		if player_bet > @player.bankroll
 			puts "You don't have that much money!"
 		elsif player_bet == 0
 			main_menu
@@ -51,26 +51,26 @@ class High_low
 		if player_number <= winning_number
 			if player_number == winning_number
 				puts "Jackpot!"
-				player.bankroll = player.bankroll + (10*player_bet)
+				@player.bankroll += (10*player_bet)
 			elsif beast_number > winning_number
 				puts "You chose wisely!"
-				player.bankroll = player.bankroll  + (2*player_bet)
+				@player.bankroll += (2*player_bet)
 			elsif beast_number == winning_number
 				puts "The Beast omnipotent triumphs!"
-				player.bankroll = player.bankroll  - player_bet
+				@player.bankroll -= player_bet
 			elsif player_number > beast_number
 				puts "You chose wisely!"
-				player.bankroll = player.bankroll  + (2*player_bet)
+				@player.bankroll += (2*player_bet)
 			elsif beast_number >= player_number
 				puts "You chose poorly!"
-				player.bankroll = player.bankroll  - player_bet
+				@player.bankroll -= player_bet
 			end
 		else
 			puts "You chose poorly!"
-			player.bankroll = player.bankroll  - player_bet
+			@player.bankroll -= player_bet
 		end
-		puts "Wallet total: $#{player.bankroll}"
-		player.bankroll
+		puts "Wallet total: $#{@player.bankroll}"
+		@player.bankroll
 	end
 
 	def exit_menu
@@ -80,7 +80,7 @@ class High_low
 		when "y"
 			main_menu
 		when "n"
-			casino.menu
+			puts "Goodbye"
 		else
 			exit_menu
 		end
