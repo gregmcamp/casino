@@ -19,7 +19,8 @@ class Casino
     puts "1) High-Low"
     puts "2) Slots"
     puts "3) Roulette"
-    puts "4) QUIT"
+    puts "4) War"
+    puts "5) QUIT"
     menu_select = gets.to_i
     random_events
     case menu_select
@@ -35,6 +36,9 @@ class Casino
         Roulette.new(@player)
       end
     when 4
+      War.new(@player)
+    when 5
+      puts "Sayonara, sucker!"
       exit(0)
     else
       puts "Bad llama. Retry.\n\n"
