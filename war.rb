@@ -1,6 +1,5 @@
 require_relative 'deck'
 require_relative 'card'
-require_relative 'deck'
 
 class War
 
@@ -46,6 +45,10 @@ class War
   end 
 
   def exit_to_main
+    if @player.bankroll == 0
+      puts "Get your broke butt out of here!"
+      exit(0)
+    end  
     puts "Would you care to play again? (y/n)"
     exit_response = gets.strip
     if exit_response == "y"
@@ -55,53 +58,3 @@ class War
     end
   end
 end
-
-=begin
-class War
-
-	attr_accessor :draw_card #:player
-
-	def initialize
-    #@player = player
-    @deck = Deck.new
-    game_start
-  end  
-
-  def self.welcome
-    puts "\nWelcome to the War Room! Prepare to lose!\n\n"
-  end
-
-  def game_start
-		welcome = gets.strip
-		draw_card
-	end
-
-	def draw_card
-    puts "Player drew card..."
-		puts @deck.deal
-  end
-
-
-
-  def repeat
-    play = War.new
-    play.draw_card
-    play.exit_war
-  end
-
-  def exit_war
-    puts "Would you care to play again? (y/n)"
-    exit_response = gets.strip
-    if exit_response == "y"
-        repeat
-    else
-      puts "Have a nice day, come back when you have more money!"
-    end
-  end
-end
-
-War.welcome
-play = War.new
-play.draw_card
-play.exit_war
-=end
