@@ -8,4 +8,21 @@ class Card
    @suit = suit
    @color = color
  end
+
+ def to_s
+  case @rank
+  when 1
+    r = 'A'
+  when 11
+    r = 'J'
+  when 12
+    r = 'Q'
+  when 13
+    r = 'K'
+  else 
+    r = @rank
+  end
+  "#{suit} #{r}"
+ end 
+
 end
