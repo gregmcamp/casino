@@ -75,7 +75,7 @@ class HighLow
 		option = gets.strip.downcase
 		case option
 		when "y"
-			main_menu
+			casino.menu
 		when "n"
 			puts "Goodbye"
 		else
