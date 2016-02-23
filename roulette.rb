@@ -1,15 +1,15 @@
 class Roulette
-	attr_accessor :bet, :winning_number, :player_pick, :odd_even_pick
+	attr_accessor
 	def initialize(player)
 		@player = player
-		@bet = bet
-		@winning_number = winning_number
-		@player_pick = player_pick
-		@odd_even_pick = odd_even_pick
 		main_menu
 	end
 
 	def main_menu
+		if @player.bankroll == 0
+			puts "No more $$$"
+			exit(0)
+		end
 		puts "Monte Carlo Roulette Table\n"
     puts "1) Pick a number [1-38]"
 		puts "2) Odd or Even"
@@ -17,16 +17,16 @@ class Roulette
 		menu_option = gets.to_i
 		case menu_option
 		when 1
-			get_bet
-			get_winning_number
-			pick_a_number
-			determine_winnings_pick
+			bet = get_bet
+			winning_number = get_winning_number
+			player_pick = pick_a_number
+			determine_winnings_pick(bet, winning_number, player_pick)
 			exit_menu
 		when 2
-			get_bet
-			get_winning_number
-			odd_even
-			determine_winnings_odd_even
+			bet = get_bet
+			winning_number = get_winning_number
+			odd_even_pick = odd_even
+			determine_winnings_odd_even(bet, winning_number, odd_even_pick)
 			exit_menu
 		when 3
 			puts "Goodbye"
@@ -38,18 +38,19 @@ class Roulette
 	def get_bet
 		puts "Wallet total: $#{@player.bankroll}"
 		puts "How much will you bet?"
-		@bet = gets.to_i
-		if @bet > @player.bankroll
+		bet = gets.to_i
+		if bet > @player.bankroll
 			puts "You don't have that much money!"
-			main_menu
-		elsif @bet == 0
+			get_bet
+		elsif bet == 0
 			puts "You have to bet more than zero"
-			main_menu
+			get_bet
 		end
+		bet
 	end
 
 	def get_winning_number
-		@winning_number = 1 + rand(38)
+		1 + rand(38)
 	end
 
 	def exit_menu
@@ -65,9 +66,10 @@ class Roulette
 
 	def pick_a_number
 		puts "Pick a number [1-38]"
-		@player_pick = gets.to_i
-		if @player_pick >= 1 && @player_pick <= 38
+		player_pick = gets.to_i
+		if player_pick >= 1 && player_pick <= 38
 			puts "The roulette spins!"
+			player_pick
 		else
 			pick_a_number
 		end
@@ -75,45 +77,46 @@ class Roulette
 
 	def odd_even
 		puts "What'll it be?\n 1) Odd\n 2) Even"
-		@odd_even_pick = gets.to_i
-		if @odd_even_pick == 1
+		odd_even_pick = gets.to_i
+		if odd_even_pick == 1
 			puts "The roulette spins!"
-		elsif @odd_even_pick ==2
+			odd_even_pick
+		elsif odd_even_pick ==2
 			puts "The roulette spins!"
 		else
 			odd_even
 		end
 	end
 
-	def determine_winnings_pick
+	def determine_winnings_pick(bet, winning_number, player_pick)
 		puts "Your number: #{player_pick}"
-		puts "Winning number: #{@winning_number}"
-		if @player_pick == @winning_number
-			@player.bankroll += (35*@bet)
+		puts "Winning number: #{winning_number}"
+		if player_pick == winning_number
+			@player.bankroll = @player.bankroll + 2 * bet
 			"Winner!"
 		else
 			"Loooooser!"
-			@player.bankroll -= @bet
+			@player.bankroll = @player.bankroll - bet
 		end
 	end
 
-	def determine_winnings_odd_even
-		puts "Winning number: #{@winning_number}"
-		if @odd_even_pick == 1
-			if @winning_number % 2 == 0
+	def determine_winnings_odd_even(bet, winning_number, odd_even_pick)
+		puts "Winning number: #{winning_number}"
+		if odd_even_pick == 1
+			if winning_number % 2 == 0
 				puts "Loooooser!"
-				@player.bankroll -= @bet
+				@player.bankroll = @player.bankroll - bet
 			else
 				puts "Winner!"
-				@player.bankroll += (2*@bet)
+				@player.bankroll = @player.bankroll + 2 * bet
 			end
 		else
-			if @winning_number % 2 == 0
+			if winning_number % 2 == 0
 				puts "Winner!"
-				@player.bankroll += (2*@bet)
+				@player.bankroll = @player.bankroll + 2 * bet
 			else
 				puts "Loooooser!"
-				@player.bankroll -= @bet
+				@player.bankroll = @player.bankroll - bet
 			end
 		end
 	end
