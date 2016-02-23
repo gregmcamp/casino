@@ -1,6 +1,7 @@
 require_relative 'player'
 require_relative 'slots'
 require_relative 'high_low'
+require_relative 'roulette'
 
 class Casino
   attr_accessor :player
@@ -16,7 +17,8 @@ class Casino
   	puts "CASINO MENU:"
   	puts "1) High-Low"
   	puts "2) Slots"
-  	puts "3) QUIT"
+    puts "3) Roulette"
+  	puts "4) QUIT"
     menu_select = gets.to_i
     case menu_select
     when 1
@@ -24,6 +26,8 @@ class Casino
     when 2
       Slot_machine.new(@player)
     when 3
+      Roulette.new(@player)
+    when 4
       exit(0)
     else
       puts "Bad llama. Retry.\n\n"
