@@ -38,6 +38,10 @@ class Slot_machine
 	end	
 
 	def exit_to_main
+		if @player.bankroll == 0
+			puts "Go get some money and come back another time."
+			exit(0)
+		end
 		puts "Current wallet total: $#{@player.bankroll}"
 		puts "Would you like to \exit to main menu? (y/keep yankin')\n\n"
 		exit_response = gets.strip.downcase
