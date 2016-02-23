@@ -15,6 +15,11 @@ class Casino
   end
 
   def menu
+    if @player.bankroll == 0
+      puts "You're out of money, sucka!"
+      exit(0)
+    end
+    random_events
     puts "CASINO MENU:"
     puts "1) High-Low"
     puts "2) Slots"
@@ -22,7 +27,6 @@ class Casino
     puts "4) War"
     puts "5) QUIT"
     menu_select = gets.to_i
-    random_events
     case menu_select
     when 1
       HighLow.new(@player)
@@ -45,6 +49,7 @@ class Casino
       menu
     end
     menu
+
   end
 
   def random_events
@@ -67,8 +72,6 @@ class Casino
         @player.bankroll -= 100
         puts "Wallet total: $#{@player.bankroll}"
       end
-    else
-      puts "Transferring to game room..."
     end
   end
 end

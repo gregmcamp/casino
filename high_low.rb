@@ -20,6 +20,7 @@ class HighLow
 		player_bet = gets.to_i
 		if player_bet > @player.bankroll
 			puts "You don't have that much money!"
+			main_menu
 		elsif player_bet == 0
 			main_menu
 		end
@@ -71,6 +72,10 @@ class HighLow
 	end
 
 	def exit_menu
+		if @player.bankroll == 0
+			puts "You're out of money, gangsta!"
+			exit(0)
+		end
 		puts "Would you like to callenge The Beast again?[y/n]"
 		option = gets.strip.downcase
 		case option
