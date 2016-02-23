@@ -3,6 +3,7 @@ require_relative 'slots'
 require_relative 'high_low'
 require_relative 'roulette'
 require_relative 'russian'
+require_relative 'war'
 
 class Casino
   attr_accessor :player
