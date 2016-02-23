@@ -13,41 +13,54 @@ class Roulette
 		puts "Monte Carlo Roulette Table\n"
     puts "1) Pick a number [1-38]"
 		puts "2) Odd or Even"
+		puts "3) Quit"
 		menu_option = gets.to_i
-		while menu_option != 1 && menu_option != 2 do
-			main_menu
-		end
-		@bet = get_bet
-		winning_array = [*1..38]
-		@winning_number = winning_array.sample
-		if menu_option == 1
+		case menu_option
+		when 1
+			get_bet
+			get_winning_number
 			pick_a_number
 			determine_winnings_pick
-		else
+			exit_menu
+		when 2
+			get_bet
+			get_winning_number
 			odd_even
 			determine_winnings_odd_even
-		end
-		puts "Wallet total: #{@player.bankroll}"
-		puts "Play again?[any character to play/no]"
-		option = gets.strip
-		if option == "no"
-			"Goodbye!"
+			exit_menu
+		when 3
+			puts "Goodbye"
 		else
 			main_menu
 		end
 	end
 
 	def get_bet
-		player_bet = 0
 		puts "Wallet total: $#{@player.bankroll}"
 		puts "How much will you bet?"
-		player_bet = gets.to_i
-		if player_bet > @player.bankroll
+		@bet = gets.to_i
+		if @bet > @player.bankroll
 			puts "You don't have that much money!"
-		elsif player_bet == 0
-			get_bet
+			main_menu
+		elsif @bet == 0
+			puts "You have to bet more than zero"
+			main_menu
 		end
-		player_bet
+	end
+
+	def get_winning_number
+		@winning_number = 1 + rand(38)
+	end
+
+	def exit_menu
+		puts "Wallet total: #{@player.bankroll}"
+		puts "Play again?[any character to play/no]"
+		option = gets.strip
+		if option == "no"
+			puts "Goodbye!"
+		else
+			main_menu
+		end
 	end
 
 	def pick_a_number
@@ -63,7 +76,9 @@ class Roulette
 	def odd_even
 		puts "What'll it be?\n 1) Odd\n 2) Even"
 		@odd_even_pick = gets.to_i
-		if @odd_even_pick == 1 || @odd_even_pick == 2
+		if @odd_even_pick == 1
+			puts "The roulette spins!"
+		elsif @odd_even_pick ==2
 			puts "The roulette spins!"
 		else
 			odd_even
@@ -81,6 +96,7 @@ class Roulette
 			@player.bankroll -= @bet
 		end
 	end
+
 	def determine_winnings_odd_even
 		puts "Winning number: #{@winning_number}"
 		if @odd_even_pick == 1
