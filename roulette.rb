@@ -6,12 +6,12 @@ class Roulette
 	end
 
 	def main_menu
-		if @player.bankroll == 0
+		if @player.bankroll <= 0
 			puts "No more $$$"
 			exit(0)
 		end
 		puts "Monte Carlo Roulette Table\n"
-    puts "1) Pick a number [1-38]"
+    puts "1) Pick a number"
 		puts "2) Odd or Even"
 		puts "3) Quit"
 		menu_option = gets.to_i

@@ -2,7 +2,7 @@ class Slot_machine
 
 	def initialize(player)
 		@player = player
-		puts "\nWelcome to the slot machine biotch!\n\n"
+		puts "\nWelcome to the slot machine!\n\n"
 		puts "yank my crank!!!\n\n"
 		puts "press the enter/return to continue"
 		welcome_response = gets.strip
@@ -19,7 +19,7 @@ class Slot_machine
 		puts "#{result_1}, #{result_2}, #{result_3}"
 
 		if result_1 == result_2 && result_1 == result_3
-			puts "Congrats you hit the jackpot mother effer!!!\n\n"
+			puts "Congrats you hit the jackpot!!!\n\n"
 			@player.bankroll += 100
 		elsif result_1 == result_2
 			puts "Nice, you won a little somptin somptin\n\n"
@@ -38,15 +38,17 @@ class Slot_machine
 	end	
 
 	def exit_to_main
-		if @player.bankroll == 0
+		if @player.bankroll <= 0
 			puts "Go get some money and come back another time."
 			exit(0)
 		end
 		puts "Current wallet total: $#{@player.bankroll}"
-		puts "Would you like to \exit to main menu? (y/keep yankin')\n\n"
+		puts "Would you like to exit to main menu? (y/keep yankin')\n\n"
 		exit_response = gets.strip.downcase
 		if exit_response == "y"
 			puts "Adios, thanks for the money!!!"
+		elsif @player.bankroll < 15
+			puts "You don't have enough money to play this game."
 		else
 			slots
 		end

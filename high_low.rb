@@ -20,9 +20,9 @@ class HighLow
 		player_bet = gets.to_i
 		if player_bet > @player.bankroll
 			puts "You don't have that much money!"
-			main_menu
+			get_player_bet
 		elsif player_bet == 0
-			main_menu
+			get_player_bet
 		end
 		player_bet
 	end
@@ -49,7 +49,7 @@ class HighLow
 		if player_number <= winning_number
 			if player_number == winning_number
 				puts "Jackpot!"
-				@player.bankroll += (10*player_bet)
+				@player.bankroll += (100*player_bet)
 			elsif beast_number > winning_number
 				puts "You chose wisely!"
 				@player.bankroll += (2*player_bet)
@@ -72,7 +72,7 @@ class HighLow
 	end
 
 	def exit_menu
-		if @player.bankroll == 0
+		if @player.bankroll <= 0
 			puts "You're out of money, gangsta!"
 			exit(0)
 		end
@@ -80,7 +80,7 @@ class HighLow
 		option = gets.strip.downcase
 		case option
 		when "y"
-			casino.menu
+			main_menu
 		when "n"
 			puts "Goodbye"
 		else
