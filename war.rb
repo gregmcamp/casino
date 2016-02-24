@@ -9,7 +9,8 @@ class War
     @dealer_draw = dealer_draw
     @player_draw = player_draw
     @player = player
-    puts "welcome to the War Room, prepare to lose your money!\n\n"
+    puts "Welcome to the War Room, prepare to lose your money!\n\n"
+    puts "$20 a hand"
     @deck = Deck.new
     player_card
   end
@@ -45,17 +46,19 @@ class War
   end 
 
   def exit_to_main
-    if @player.bankroll == 0
+    if @player.bankroll <= 0
       puts "Get your broke butt out of here!"
       exit(0)
     end  
     puts "Cash on hand: $#{@player.bankroll}"
-    puts "Would you care to play again? (y/n)"
+    puts "Would you care to play again? (no/any character to continue)"
     exit_response = gets.strip
-    if exit_response == "y"
-        player_card
-    else
+    if exit_response == "no"
       puts "Have a nice day, come back when you have more money!"
+    elsif @player.bankroll < 20
+      puts "You don't enough money to play this game."
+    else
+      player_card
     end
   end
 end

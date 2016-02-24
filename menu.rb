@@ -16,7 +16,7 @@ class Casino
   end
 
   def menu
-    if @player.bankroll == 0
+    if @player.bankroll <= 0
       puts "You're out of money, sucka!"
       exit(0)
     end
@@ -32,6 +32,10 @@ class Casino
     when 1
       HighLow.new(@player)
     when 2
+      if @player.bankroll < 15
+        puts "You don't have enough money to play this game."
+        menu
+      end
       Slot_machine.new(@player)
     when 3
       enter_russian = 1 + rand(3)
@@ -41,6 +45,10 @@ class Casino
         Roulette.new(@player)
       end
     when 4
+      if @player.bankroll < 20
+        puts "You don't enough money to play this game."
+        menu
+      end
       War.new(@player)
     when 5
       puts "Sayonara, sucker!"

@@ -10,8 +10,7 @@ class Russian
     puts "Spin the chamber?[any to continue/no]"
     option = gets.strip
     if option == "no"
-      puts "Congratulations. You're not insane!"
-      @player.bankroll += 120
+      puts "Dasvidaniya Comrade"
     else
       outcome
     end
@@ -20,7 +19,7 @@ class Russian
   def outcome
     survive = 1 + rand(6)
     if survive == 1
-      puts "BANG"
+      puts "BANG! You're dead."
       exit(0)
     else
       puts "click..."
